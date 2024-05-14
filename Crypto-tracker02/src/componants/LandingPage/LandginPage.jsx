@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import iphone from '../../assets/iphone.png'
 import gradiend from '../../assets/gradient.png'
 import Button from '../Common/Button'
 import {motion} from 'framer-motion'
+import { CoinsContext } from '../../Context/CoinsContext'
+import BackToTop from '../Common/BackToTop'
+
 function LandginPage() {
   return (
    <div className='_container  px-12 flex flex-col sm:flex-row h-screen w-full'>
@@ -57,6 +60,7 @@ function LandginPage() {
          />
       <img className=' w-[180px] absolute  sm:absolute sm:w-[170px] sm:right-5 md:w-[250px] md:right-7 ' src={gradiend} alt="" />
     </div>
+    <BackToTop/>
    </div>
   )
 }

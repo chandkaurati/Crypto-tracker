@@ -6,6 +6,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { createTheme } from '@mui/material';
 import CoinGridbox from './CoinGridbox';
+import CoinList from './CoinList';
 
 export default function LabTabs({coins}) {
   const [value, setValue] = useState('Grid');
@@ -45,12 +46,18 @@ export default function LabTabs({coins}) {
           gap-3 '
           >
           {coins.map((coin)=>{
-               return  <CoinGridbox coin={coin}/>
+               return  <CoinGridbox  key={coin.id} coin={coin}/>
             })}
            
           </div>
         </TabPanel>
-        <TabPanel value="List">List</TabPanel>
+        <TabPanel value="List">
+        <table className='w-full'>
+        {coins.map((coin,i)=>{
+          return <CoinList coin={coin}/>
+        })}
+        </table>
+        </TabPanel>
       </TabContext>
     </div>
   );

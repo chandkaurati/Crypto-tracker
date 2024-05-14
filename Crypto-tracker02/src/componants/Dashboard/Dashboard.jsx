@@ -1,38 +1,47 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LabTabs from '../Common/Tabs'
 import axios  from 'axios'
+import Search from '../Common/Search'
+import PaginationControlled from '../Common/Pagination'
+import { CoinsContext } from '../../Context/CoinsContext'
+import Loader from '../Common/Loader'
+import BackToTop from '../Common/BackToTop'
 function Dashboard() {
-const [data, setData] = useState([])
+const [search, setSearch] = useState('')
+const [page, setPage] =  useState() 
+const [isLoading, setLoadinig] = useState(false)
+const {data} = useContext(CoinsContext)
+
+const onSearchange = (e)=>{
+   e.preventDefault()
+   setSearch(e.target.value)
+}
+
+const searcCoin = data.filter(
+  (coin)=> coin.name.toLowerCase().includes(search) || coin.symbol.toLowerCase().includes(search)
+)
 
 useEffect(()=>{
-  const fetchData = async()=>{
-    const options = {
-       method : "GET",
-       url : 'https://api.coingecko.com/api/v3/coins/markets',
-       params:{
-          vs_currency:"usd",
-          per_page:100,
-          x_cg_demo_api_key:  'CG-GoihbSiGKyma1fZv8hxeeDeE',
-       },
-       headers:{accept: 'application/json'}
-    }
- 
-    try {
-     const responce = axios.request(options)
-     setData((await responce).data)
-     console.log(data)
-    } catch (error) {
-     console.log(error)
-    }
- }
+  data.length == 0 ? setLoadinig(true) : setLoadinig(false)
+},[data])
 
- fetchData()
-},[])
+if(isLoading){
+   return <Loader/>
+}else{
   return (
-    <div>
-     <LabTabs coins={data}/>
+    <>
+    <BackToTop/>
+    <Search search={search} event={onSearchange}/>
+     <div>
+     <LabTabs coins={searcCoin}/>
     </div>
+     <div className='flex w-full items-center justify-center h-10 p-20'>
+      {!isLoading && <PaginationControlled/>}
+     </div>
+    </>
   )
+}
+
 }
 
 export default Dashboard
