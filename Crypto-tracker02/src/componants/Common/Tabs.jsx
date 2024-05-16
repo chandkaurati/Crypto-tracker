@@ -54,7 +54,7 @@ export default function LabTabs({coins}) {
         <TabPanel value="List">
         <table className='w-full'>
         {coins.map((coin,i)=>{
-          return <CoinList coin={coin}/>
+          return <CoinList key={coin.id} coin={coin}/>
         })}
         </table>
         </TabPanel>

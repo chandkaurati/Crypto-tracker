@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import LabTabs from '../Common/Tabs'
+import LabTabs from '../componants/Common/Tabs'
 import axios  from 'axios'
-import Search from '../Common/Search'
-import PaginationControlled from '../Common/Pagination'
-import { CoinsContext } from '../../Context/CoinsContext'
-import Loader from '../Common/Loader'
-import BackToTop from '../Common/BackToTop'
+import Search from '../componants/Common/Search'
+import PaginationControlled from '../componants/Common/Pagination'
+import { CoinsContext } from '../Context/CoinsContext'
+import Loader from '../componants/Common/Loader'
+import BackToTop from '../componants/Common/BackToTop'
 function Dashboard() {
 const [search, setSearch] = useState('')
 const [page, setPage] =  useState() 
