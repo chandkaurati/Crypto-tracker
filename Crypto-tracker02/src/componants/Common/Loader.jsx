@@ -3,7 +3,7 @@ import React from 'react'
 
 function Loader() {
   return (
-    <div className='flex justify-center items-center w-screen h-screen bg-black absolute text-[var(--blue)]'>
+    <div className='flex justify-center items-center w-full h-full bg-black absolute text-[var(--blue)]'>
    <CircularProgress />  
     </div>
   )

@@ -1,12 +1,14 @@
 import React from "react";
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
+import { Link } from "react-router-dom";
 function CoinGridbox({ coin }) {
   return (
-    <div
+    <Link to={`coin/${coin.id}`}>
+     <div
       className="
      w-[300px] bg-[var(--darkgray)] border border-[var(--darkgray)]
-     h-[300px] rounded-xl p-7
+     h-[300px] rounded-xl px-5 py-4
     flex flex-col justify-start "
     >
       <div
@@ -39,6 +41,7 @@ function CoinGridbox({ coin }) {
        <p>total volume: {coin.total_volume.toLocaleString( )}</p>
       </div>
     </div>
+    </Link>
   );
 }
 
