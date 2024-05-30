@@ -13,41 +13,73 @@ import Select from "../componants/Common/Select";
 function Coinpage() {
 
 const { id } = useParams();
-const { fetchCoinById } = useContext(CoinsContext);
-const [coinData, setCointdata] = useState({});
-const [Error, SetError] = useState(false);
-const [marketData, setMarkteData] = useState({})
-const {getMarkteData, chartData, loading} = useContext(CoinsContext)
-const [days, setDays] = useState(7)
+const {getMarkteData,} = useContext(CoinsContext)
+const [loading, setLoading] = useState(true)
+const [Error, setError] = useState(false)
+const [chartData, setChartData] = useState({
+  labels: [],
+  datasets: [
+    {
+      label: "Market Data",
+      backgroundColor: "rgb(255, 99, 132)",
+      borderColor: "rgb(255, 99, 132)",
+      data: [],
+    },
+  ],
+});
 
-  useEffect(() => {
-    async function getData(){
-    const res = await getMarkteData(id, days)
-    }
-    getData()
-  },[]);
+const [days, setDays] = useState(30)
+useEffect(()=>{
 
-  if (loading) {
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
-  }
+ const fetchMarketData = async()=>{
+  try {
+    const data = await getMarkteData(id, days)
+    const prices = data?.prices ?? [];
+    console.log(prices)
+    const dates =  prices.map(subarr=> Convertdate(subarr[0]))
+    if(prices){
+       setChartData({
+         labels : dates,
+         datasets : [
   
-  if (Error) {
-    return <ErrorPage />;
+        {
+        label: "Market Data",
+        borderColor: "#3a80e9",
+        borderWidth : 2,
+        tension : 0.5,
+        backgroundColor: "#3a80e9",
+        pointRadius:0,
+        data: prices.map(el=> el[1]),
+        } 
+  
+         ]
+       })
+    }
+    setLoading(false)
+  } catch (error) {
+    setError(true)
   }
+  // console.log(dates)
+ }
+ fetchMarketData()
+},[id, days])
 
-  return (
+if(loading){
+   return (
     <>
-     <div className="max-w-full p-7">
-     <h1>coin{id}</h1>
-     <Select/>
-     <LineChart data={chartData}/>
-     </div>
+    <Loader/>
     </>
-  );
+   )
+}
+return ( 
+  <>
+  <Select setDays={setDays} days={days}/>
+  <div className="chart-wrapper bg-[var(--darkgray)]">
+  <LineChart data={chartData}/>
+  </div>
+  </>
+)
 }
 
 export default Coinpage;
+

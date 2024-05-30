@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
-function Select() {
-    const [days,setDays] = useState()
-
+function Select(setDays, days) {
+    // const [days,setDays] = useState()
     const handleChange = (e)=>{
         e.preventDefault()
         setDays(e.target.value)
