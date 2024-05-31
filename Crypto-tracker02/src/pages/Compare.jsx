@@ -9,9 +9,8 @@ function Compare() {
     });
 
     function set(){
-         setData(   {
+         setData({
             labels:["jan", "Feb", "March"],
-    
             datasets:[
             {
               label : "my first data set",
@@ -20,7 +19,6 @@ function Compare() {
               data : [12,23,6,]
             }
             ]
-          
           })
     }
   useEffect(()=>{

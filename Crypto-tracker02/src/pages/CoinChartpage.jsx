@@ -8,10 +8,9 @@ import CoinList from "../componants/Common/CoinList";
 import axios from "axios";
 import LineChart from "../componants/Chart/LineChart";
 import { Convertdate } from "../functions/ConvertDate";
-import Select from "../componants/Common/Select";
- 
-function Coinpage() {
+import BasicSelect from '../componants/Common/Select'
 
+function Coinpage() {
 const { id } = useParams();
 const {getMarkteData,} = useContext(CoinsContext)
 const [loading, setLoading] = useState(true)
@@ -41,8 +40,7 @@ useEffect(()=>{
        setChartData({
          labels : dates,
          datasets : [
-  
-        {
+      {
         label: "Market Data",
         borderColor: "#3a80e9",
         borderWidth : 2,
@@ -50,11 +48,10 @@ useEffect(()=>{
         backgroundColor: "#3a80e9",
         pointRadius:0,
         data: prices.map(el=> el[1]),
-        } 
-  
-         ]
-       })
-    }
+       } 
+      ]
+    })
+    }  
     setLoading(false)
   } catch (error) {
     setError(true)
@@ -71,10 +68,11 @@ if(loading){
     </>
    )
 }
+
 return ( 
   <>
-  <Select setDays={setDays} days={days}/>
-  <div className="chart-wrapper bg-[var(--darkgray)]">
+  <div className=""><BasicSelect days={days} setDays={setDays}/></div>
+  <div className="chart-wrapper bg-[var(--darkgray)] ">
   <LineChart data={chartData}/>
   </div>
   </>

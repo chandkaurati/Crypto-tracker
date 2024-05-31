@@ -4,9 +4,8 @@ import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 
 function BackToTop() {
  const [isVisible, setIsvisible] = useState(false)
-console.log(window.screenTop)
  const toggleVisibility = ()=>{
-   if(window.screenTop > 300){
+   if(window.scrollY > 300){
      setIsvisible(true)
    }else{
      setIsvisible(false)
